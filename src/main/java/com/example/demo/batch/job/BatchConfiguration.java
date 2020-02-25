@@ -43,7 +43,7 @@ public class BatchConfiguration {
     @Bean
     public FlatFileItemReader<Autobot> reader() {
         FlatFileItemReader<Autobot> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("sample-data.csv"));
+        reader.setResource(new ClassPathResource("autobot.csv"));
         reader.setLineMapper(new DefaultLineMapper<Autobot>() {
             {
                 setLineTokenizer(new DelimitedLineTokenizer() {

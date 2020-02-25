@@ -28,4 +28,13 @@ public class Autobot {
     public void setCar(String car) {
         this.car = car;
     }
+    
+    @Override
+    public String toString() {
+        return "Autobot{" +
+                "name='" + name + '\'' +
+                ", car='" + car + '\'' +
+                '}';
+    }
+
 }
