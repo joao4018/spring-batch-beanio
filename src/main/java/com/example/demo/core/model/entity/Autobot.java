@@ -1,6 +1,18 @@
 package com.example.demo.core.model.entity;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "autobot")
 public class Autobot {
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     private String name;
     private String car;

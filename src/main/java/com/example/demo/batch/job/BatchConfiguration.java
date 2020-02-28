@@ -11,13 +11,16 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import javax.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
 
@@ -30,6 +33,9 @@ public class BatchConfiguration {
     private final StepBuilderFactory stepBuilderFactory;
 
     private final DataSource dataSource;
+
+    @Autowired
+    EntityManagerFactory emf;
 
     public BatchConfiguration(JobBuilderFactory jobBuilderFactory,
                               StepBuilderFactory stepBuilderFactory,
@@ -62,12 +68,19 @@ public class BatchConfiguration {
         return new AutobotItemProcessor();
     }
 
+//    @Bean
+//    public JdbcBatchItemWriter<Autobot> writer() {
+//        JdbcBatchItemWriter<Autobot> writer = new JdbcBatchItemWriter<>();
+//        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+//        writer.setSql("INSERT INTO autobot (name, car) VALUES (:name, :car)");
+//        writer.setDataSource(this.dataSource);
+//        return writer;
+//    }
+
     @Bean
-    public JdbcBatchItemWriter<Autobot> writer() {
-        JdbcBatchItemWriter<Autobot> writer = new JdbcBatchItemWriter<>();
-        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        writer.setSql("INSERT INTO autobot (name, car) VALUES (:name, :car)");
-        writer.setDataSource(this.dataSource);
+    public JpaItemWriter writer() {
+        JpaItemWriter writer = new JpaItemWriter();
+        writer.setEntityManagerFactory(emf);
         return writer;
     }
     // end::readerwriterprocessor[]
