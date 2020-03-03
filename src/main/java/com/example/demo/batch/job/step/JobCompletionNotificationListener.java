@@ -9,6 +9,8 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
@@ -18,22 +20,24 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
+    private final EntityManager em;
+
+    public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate, EntityManager entityManager) {
         this.jdbcTemplate = jdbcTemplate;
+        this.em = entityManager;
     }
+    private EntityManager entityManager;
 
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
             log.info("!!! JOB FINISHED! Time to verify the results");
-
-            List<Autobot> results = this.jdbcTemplate.query("SELECT name, car FROM autobot",
-                    (rs, row) -> new Autobot(rs.getString(1), rs.getString(2)));
-
-            for (Autobot autobot : results) {
+            TypedQuery<Autobot> query =
+                    em.createQuery("SELECT c FROM Autobot c", Autobot.class);
+            List<Autobot> results = query.getResultList();
+            results.forEach(autobot -> {
                 log.info("Found <" + autobot.toString() + "> in the database.");
-            }
-
+            } );
         }
     }
 }
