@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
+import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,24 +22,38 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final EntityManager em;
-
-    public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate, EntityManager entityManager) {
+    public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.em = entityManager;
     }
+
     private EntityManager entityManager;
+
+    public JpaPagingItemReader read() {
+        return new JpaPagingItemReaderBuilder<Autobot>()
+                .name("UserItemReader")
+                .entityManagerFactory(entityManager.getEntityManagerFactory())
+                .queryString("SELECT u FROM Autobot u")
+                .pageSize(2)
+                .transacted(false)
+                .build();
+    }
 
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
             log.info("!!! JOB FINISHED! Time to verify the results");
             TypedQuery<Autobot> query =
-                    em.createQuery("SELECT c FROM Autobot c", Autobot.class);
+                    entityManager.createQuery("SELECT c FROM Autobot c", Autobot.class);
             List<Autobot> results = query.getResultList();
             results.forEach(autobot -> {
                 log.info("Found <" + autobot.toString() + "> in the database.");
-            } );
+//            List<Autobot> results = this.jdbcTemplate.query("SELECT name, car FROM autobot",
+//                    (rs, row) -> new Autobot(rs.getString(1), rs.getString(2)));
+//
+//            for (Autobot autobot : results) {
+//                log.info("Found <" + autobot.toString() + "> in the database.");
+            }
+
         }
     }
 }
