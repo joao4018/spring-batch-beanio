@@ -27,7 +27,7 @@ public class UserJob {
                          @Qualifier("stepReaderFileUsers") Step userStepReaderFile,
                          @Qualifier("stepWriterUsersDB") Step stepWriterUsersBD,
                          @Qualifier("stepWriterFileToDB") Step stepWriterUsersFileToDB,
-                         JobExecutionListener listener) {
+                         @Qualifier("listenerWriter") JobExecutionListener listener) {
         return this.jobBuilderFactory.get("USER_JOB_CREATE")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)

@@ -1,8 +1,8 @@
 package com.example.demo.batch.listener;
 
-
 import com.example.demo.batch.job.UserJob;
 import com.example.demo.core.repository.UserRepository;
+import com.example.demo.core.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +19,10 @@ public class ListenerWriterDB {
 
     private static final Logger log = LoggerFactory.getLogger(UserJob.class);
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
 
-    @Bean
+    @Bean("listenerWriter")
     public JobExecutionListener listener() {
         return new JobExecutionListener() {
 
@@ -37,7 +37,7 @@ public class ListenerWriterDB {
             public void afterJob(JobExecution jobExecution) {
                 if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
                     log.info("!!! JOB FINISHED! Time to verify the results");
-                    userRepository.findAll().
+                    userService.findByAll().
                             forEach(user -> log.info("Found <" + user + "> in the database."));
                 }
             }

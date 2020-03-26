@@ -1,6 +1,7 @@
 package com.example.demo.core.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "USER")
 @Getter
+@NoArgsConstructor
 public class User {
 
     @Id

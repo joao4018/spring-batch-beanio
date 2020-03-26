@@ -18,6 +18,11 @@ public class UserService {
      *
      * @return Todos os usuarios.
      */
+
+    public void deleteAll(){
+        userRepository.deleteAll();
+    }
+
     public List<User> findByAll() {
         return this.userRepository.findAll();
     }
