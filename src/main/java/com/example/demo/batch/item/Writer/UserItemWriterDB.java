@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 
 @Component
 @RequiredArgsConstructor
-public class UserItemWriterBD {
+public class UserItemWriterDB {
 
 
     private final EntityManagerFactory emf;

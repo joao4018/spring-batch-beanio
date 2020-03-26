@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class listenerWriterBD {
+public class ListenerWriterDB {
 
     private static final Logger log = LoggerFactory.getLogger(UserJob.class);
 

@@ -1,6 +1,7 @@
 package com.example.demo.core.model;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.Date;
 @Entity
 @Table(name = "USER")
 @Getter
-@Setter
 public class User {
 
     @Id
@@ -22,9 +22,6 @@ public class User {
     private String lastname;
     @Column(name = "birthday")
     private Date birthday;
-
-    public User() {
-    }
 
     public User(String name, String lastname, Date birthday) {
         this.name = name;
