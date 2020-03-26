@@ -52,7 +52,7 @@ public class UserRegistry implements Registry {
             return new UserRegistry(registries, this);
         }
     }
-
+    @Override
     public List<Registry> getUsers() {
         return users;
     }

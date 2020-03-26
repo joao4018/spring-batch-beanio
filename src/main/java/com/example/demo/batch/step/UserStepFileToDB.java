@@ -4,32 +4,36 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.listener.StepExecutionListenerSupport;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class UserStepWriterDB extends StepExecutionListenerSupport {
-
+public class UserStepFileToDB {
     @NonNull
     private StepBuilderFactory stepBuilderFactory;
+    @Value("${file.directory.out}")
+    private String path;
+
 
     /**
      * Step responsavel por realizar a execucao dos itens reader e writer.
      */
-    @Bean("stepWriterUsersDB")
-    public Step stepWriteUsersDB(@Qualifier("jpaUserItemReader") ItemReader reader, @Qualifier("jpaUserItemWriter") ItemWriter writer, @Qualifier("userItemProcessor") ItemProcessor processor) {
-        return this.stepBuilderFactory.get("STEP_WRITER_USERS_IN_DATABASE")
+    @Bean("stepWriterFileToDB")
+    public Step stepReaderUsers(@Qualifier("userItemReaderFile") ItemReader reader, @Qualifier("jpaUserItemWriter") ItemWriter writer, @Qualifier("registryToUserProcessor") ItemProcessor processor) {
+        return this.stepBuilderFactory.get("STEP_READER_USERS_IN_DATABASE")
                 .chunk(1000)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
+                .faultTolerant()
+                .skip(ClassCastException.class)
+                .skipLimit(1)
                 .build();
     }
-
 }

@@ -7,6 +7,7 @@ import org.beanio.annotation.Record;
 import org.beanio.builder.Align;
 
 import java.util.Date;
+import java.util.List;
 
 @Record
 @Fields({@Field(length = 6, name = "identificador de registro", rid = true, literal = "HEADER")})
@@ -23,6 +24,11 @@ public class UserHeader implements Registry {
     private UserHeader(Date dateGenerate, Integer registryAmount) {
         this.dateGenerate = dateGenerate;
         this.registryAmount = registryAmount;
+    }
+
+    @Override
+    public List<Registry> getUsers() {
+        return null;
     }
 
     public static class UserHeaderBuilder {

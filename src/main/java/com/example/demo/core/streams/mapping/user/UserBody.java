@@ -6,6 +6,7 @@ import org.beanio.annotation.Fields;
 import org.beanio.annotation.Record;
 
 import java.util.Date;
+import java.util.List;
 
 @Record
 @Fields({@Field(length = 8, name = "identificador de registro", rid = true, literal = "REGISTER")})
@@ -25,6 +26,11 @@ public class UserBody implements Registry {
         this.name = name;
         this.lastname = lastname;
         this.birthday = birthday;
+    }
+
+    @Override
+    public List<Registry> getUsers() {
+        return null;
     }
 
     public static class UserBodyBuilder {

@@ -26,6 +26,7 @@ public class UserJob {
     public Job sampleJob(@Qualifier("stepReaderUsers") Step stepReaderUsers,
                          @Qualifier("stepReaderFileUsers") Step userStepReaderFile,
                          @Qualifier("stepWriterUsersDB") Step stepWriterUsersBD,
+                         @Qualifier("stepWriterFileToDB") Step stepWriterUsersFileToDB,
                          JobExecutionListener listener) {
         return this.jobBuilderFactory.get("USER_JOB_CREATE")
                 .incrementer(new RunIdIncrementer())
@@ -33,6 +34,7 @@ public class UserJob {
                 .start(stepReaderUsers)
                 .next(userStepReaderFile)
                 .next(stepWriterUsersBD)
+                .next(stepWriterUsersFileToDB)
                 .build();
     }
     /**
