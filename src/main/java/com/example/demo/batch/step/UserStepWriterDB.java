@@ -19,11 +19,10 @@ public class UserStepWriterDB extends StepExecutionListenerSupport {
     @NonNull
     private StepBuilderFactory stepBuilderFactory;
 
-    /**
-     * Step responsavel por realizar a execucao dos itens reader e writer.
-     */
     @Bean("stepWriterUsersDB")
-    public Step stepWriteUsersDB(@Qualifier("jpaUserItemReader") ItemReader reader, @Qualifier("jpaUserItemWriter") ItemWriter writer, @Qualifier("userItemProcessor") ItemProcessor processor) {
+    public Step stepWriteUsersDB(@Qualifier("jpaUserItemReader") ItemReader reader,
+                                 @Qualifier("jpaUserItemWriter") ItemWriter writer,
+                                 @Qualifier("userItemProcessor") ItemProcessor processor) {
         return this.stepBuilderFactory.get("STEP_WRITER_USERS_IN_DATABASE")
                 .chunk(1000)
                 .reader(reader)

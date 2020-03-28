@@ -17,15 +17,11 @@ import org.springframework.context.annotation.Configuration;
 public class UserStepFileToDB {
     @NonNull
     private StepBuilderFactory stepBuilderFactory;
-    @Value("${file.directory.out}")
-    private String path;
 
-
-    /**
-     * Step responsavel por realizar a execucao dos itens reader e writer.
-     */
     @Bean("stepWriterFileToDB")
-    public Step stepReaderUsers(@Qualifier("userItemReaderFile") ItemReader reader, @Qualifier("jpaUserItemWriter") ItemWriter writer, @Qualifier("registryToUserProcessor") ItemProcessor processor) {
+    public Step stepReaderUsers(@Qualifier("userItemReaderFile") ItemReader reader,
+                                @Qualifier("jpaUserItemWriter") ItemWriter writer,
+                                @Qualifier("registryToUserProcessor") ItemProcessor processor) {
         return this.stepBuilderFactory.get("STEP_READER_USERS_IN_DATABASE")
                 .chunk(1000)
                 .reader(reader)

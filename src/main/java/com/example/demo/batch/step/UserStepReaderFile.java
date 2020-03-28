@@ -16,9 +16,6 @@ public class UserStepReaderFile {
 
     private final StepBuilderFactory stepBuilderFactory;
 
-    /**
-     * Step responsavel por realizar a execucao dos itens reader e writer.
-     */
     @Bean("stepReaderFileUsers")
     public Step stepReaderFileUsers(@Qualifier("userItemReaderFile") ItemReader reader,
                                     @Qualifier("userItemWriterFile") ItemWriter writer) {
