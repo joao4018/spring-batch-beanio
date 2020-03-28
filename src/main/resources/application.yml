@@ -9,9 +9,9 @@ spring:
 
 
     #DIRETORIOS
-    file:
-      directory:
-        out: /tmp/output/
+file:
+  directory:
+    out: /tmp/output/
 #spring:
 #  h2:
 #    console:

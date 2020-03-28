@@ -22,7 +22,7 @@ public class UserItemReaderFile extends StepExecutionListenerSupport implements 
     @NonNull
     private FlatFileConfiguration<Registry> configuration;
 
-    @Value("${file.directory.out}")
+    @Value("src/main/resources")
     private String path;
 
     @Override
