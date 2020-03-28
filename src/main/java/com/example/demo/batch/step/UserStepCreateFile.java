@@ -23,11 +23,11 @@ public class UserStepCreateFile extends StepExecutionListenerSupport {
 
     @Bean("stepReaderUsers")
     public Step stepReaderUsers(@Qualifier("jpaUserItemReader") ItemReader reader,
-                                @Qualifier("userItemWriter") ItemWriter writer
-//                                @Qualifier("listenerCleanDB") StepExecutionListener listener
+                                @Qualifier("userItemWriter") ItemWriter writer,
+                                @Qualifier("listenerCleanDB") StepExecutionListener listener
     ) {
         return this.stepBuilderFactory.get("STEP_READER_USERS_IN_DATABASE")
-//                .listener(listener)
+                .listener(listener)
                 .chunk(1000)
                 .reader(reader)
                 .writer(writer)
