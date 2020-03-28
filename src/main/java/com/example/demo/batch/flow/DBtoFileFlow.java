@@ -9,16 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FlowSample {
+public class DBtoFileFlow {
 
-    @Bean("flow")
-    public Flow flow1(@Qualifier("stepReaderUsers") Step stepReaderUsers,
-                      @Qualifier("stepReaderFileUsers") Step userStepReaderFile,
-                      @Qualifier("stepWriterUsersDB") Step stepWriterUsersBD) {
-        return new FlowBuilder<SimpleFlow>("flow")
+    @Bean("flow2")
+    public Flow flow2(@Qualifier("stepReaderUsers") Step stepReaderUsers) {
+        return new FlowBuilder<SimpleFlow>("flow2")
                 .start(stepReaderUsers)
-                .next(userStepReaderFile)
-                .next(stepWriterUsersBD)
                 .build();
     }
 }
