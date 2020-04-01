@@ -22,7 +22,7 @@ public class UserStepWriterDB extends StepExecutionListenerSupport {
     @Bean("stepWriterUsersDB")
     public Step stepWriteUsersDB(@Qualifier("jpaUserItemReader") ItemReader reader,
                                  @Qualifier("jpaUserItemWriter") ItemWriter writer,
-                                 @Qualifier("userItemProcessor") ItemProcessor processor) {
+                                 @Qualifier("upperCaseUserProcessor") ItemProcessor processor) {
         return this.stepBuilderFactory.get("STEP_WRITER_USERS_IN_DATABASE")
                 .chunk(1000)
                 .reader(reader)

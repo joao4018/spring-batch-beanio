@@ -28,7 +28,7 @@ public class UserJob {
 //                         @Qualifier("stepReaderFileUsers") Step userStepReaderFile,
 //                         @Qualifier("stepWriterUsersDB") Step stepWriterUsersBD,
 //                         @Qualifier("stepWriterFileToDB") Step stepWriterUsersFileToDB,
-//                         @Qualifier("listenerWriter") JobExecutionListener listener) {
+//                         @Qualifier("listenerWriterJob") JobExecutionListener listener) {
 //        return this.jobBuilderFactory.get("USER_JOB_CREATE")
 //                .incrementer(new RunIdIncrementer())
 //                .listener(listener)
@@ -44,7 +44,7 @@ public class UserJob {
      */
 
     @Bean
-    public Job sampleJob(@Qualifier("flow3") Flow flow,
+    public Job sampleJob(@Qualifier("thread") Flow flow,
                          JobExecutionListener listener) {
         return this.jobBuilderFactory.get("USER_JOB_CREATE")
                 .incrementer(new RunIdIncrementer())

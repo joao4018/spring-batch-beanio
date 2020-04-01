@@ -5,7 +5,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UserItemProcessor implements ItemProcessor<User, User> {
+public class UpperCaseUserProcessor implements ItemProcessor<User, User> {
 
     @Override
     public User process(User user) {

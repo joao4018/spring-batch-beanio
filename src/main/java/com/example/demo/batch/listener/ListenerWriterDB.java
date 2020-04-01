@@ -22,7 +22,7 @@ public class ListenerWriterDB {
     private final UserService userService;
 
 
-    @Bean("listenerWriter")
+    @Bean("listenerWriterJob")
     public JobExecutionListener listener() {
         return new JobExecutionListener() {
 

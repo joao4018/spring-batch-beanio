@@ -17,12 +17,12 @@ public class FlowThread {
         return new SimpleAsyncTaskExecutor("spring_batch");
     }
 
-    @Bean("flow3")
-    public Flow flow3(@Qualifier("flow1") Flow stepReaderUsers,
-                      @Qualifier("flow2") Flow xup) {
-        return new FlowBuilder<SimpleFlow>("flow3")
+    @Bean("thread")
+    public Flow thread(@Qualifier("flowDBtoFile") Flow step1,
+                      @Qualifier("flowFiletoDB") Flow step2) {
+        return new FlowBuilder<SimpleFlow>("thread")
                 .split(taskExecutor())
-                .add(stepReaderUsers, xup)
+                .add(step1, step2)
                 .build();
     }
 }

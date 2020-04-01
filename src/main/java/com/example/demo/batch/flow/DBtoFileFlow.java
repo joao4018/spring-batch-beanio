@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DBtoFileFlow {
 
-    @Bean("flow2")
-    public Flow flow2(@Qualifier("stepReaderUsers") Step stepReaderUsers) {
-        return new FlowBuilder<SimpleFlow>("flow2")
-                .start(stepReaderUsers)
+    @Bean("flowDBtoFile")
+    public Flow flowDBtoFile(@Qualifier("stepReaderUsers") Step step) {
+        return new FlowBuilder<SimpleFlow>("flowDBtoFile")
+                .start(step)
                 .build();
     }
 }
