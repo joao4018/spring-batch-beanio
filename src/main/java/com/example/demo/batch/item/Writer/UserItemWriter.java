@@ -10,6 +10,7 @@ import com.example.demo.core.streams.mapping.user.UserRegistry;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.listener.StepExecutionListenerSupport;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@StepScope
 public class UserItemWriter extends StepExecutionListenerSupport implements ItemWriter<User> {
 
     @NonNull
@@ -30,6 +32,7 @@ public class UserItemWriter extends StepExecutionListenerSupport implements Item
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
+        stepExecution.getJobExecution().getExecutionContext().putString("MY_VALUE","asadsa");
         this.configuration.initialize(FlatFileOption.WRITER, StreamName.USER_CSV, path);
     }
 

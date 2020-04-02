@@ -27,6 +27,7 @@ public class UserItemReaderFile extends StepExecutionListenerSupport implements 
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
+        String value = stepExecution.getJobExecution().getExecutionContext().getString("MY_VALUE");
         this.configuration.initialize(FlatFileOption.READER, StreamName.USER_CSV, path);
     }
 
