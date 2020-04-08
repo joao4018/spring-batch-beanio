@@ -8,10 +8,10 @@
 		<version>2.1.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.renanravelli</groupId>
-	<artifactId>spring-batch-beanio-integration</artifactId>
+	<groupId>com.example.demo</groupId>
+	<artifactId>spring-batch-beanio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-batch-beanio-integration</name>
+	<name>spring-batch-beanio</name>
 	<description>Implementacao spring batch com beanio</description>
 
 	<properties>

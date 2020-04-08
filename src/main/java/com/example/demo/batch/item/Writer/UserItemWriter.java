@@ -30,6 +30,7 @@ public class UserItemWriter extends StepExecutionListenerSupport implements Item
     private String path;
     private UserRegistry userRegistry;
 
+
     @Override
     public void beforeStep(StepExecution stepExecution) {
         stepExecution.getJobExecution().getExecutionContext().putString("MY_VALUE","asadsa");
