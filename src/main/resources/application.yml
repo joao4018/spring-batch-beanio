@@ -1,28 +1,33 @@
 # H2
-spring:
-  # Datasource
-  datasource:
-    url: jdbc:h2:mem:~/test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+#spring:
+#  # Datasource
+#  datasource:
+#    url: jdbc:h2:mem:~/test
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
 
 
     #DIRETORIOS
 file:
   directory:
     out: /tmp/output/
-#spring:
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2
-#  # Datasource
-#  datasource:
-#    url: jdbc:h2:file:~/test
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  # Datasource
+  datasource:
+    url: jdbc:h2:file:~/testDB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   #spring:jpa:hibernate:ddl-auto=create
 
   #CONFIGURACOES SPRING BATCH
@@ -31,3 +36,7 @@ file:
 #      enabled: true
 #    initialize-schema: always
 
+
+
+topic:
+  batch-kafka-users: topic-batch-kafka-users
